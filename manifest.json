@@ -1,0 +1,63 @@
+{
+  "manifest_version": 3,
+  "name": "Discord Rich Presence - Anime-Sama / YouTube / TikTok",
+  "version": "1.2.0",
+  "description": "Affiche sur Discord ce que tu regardes sur Anime-Sama, YouTube ou TikTok.",
+  "permissions": [
+    "tabs",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://anime-sama.to/*",
+    "https://www.anime-sama.to/*",
+    "https://www.youtube.com/*",
+    "https://m.youtube.com/*",
+    "https://www.tiktok.com/*",
+    "http://127.0.0.1:28491/*",
+    "<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://anime-sama.to/*",
+        "https://www.anime-sama.to/*",
+        "<all_urls>"
+      ],
+      "exclude_matches": [
+        "https://www.youtube.com/*",
+        "https://m.youtube.com/*",
+        "https://www.tiktok.com/*"
+      ],
+      "js": [
+        "content_animesama.js"
+      ],
+      "all_frames": true,
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://www.youtube.com/*",
+        "https://m.youtube.com/*"
+      ],
+      "js": [
+        "content_youtube.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://www.tiktok.com/*"
+      ],
+      "js": [
+        "content_tiktok.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Discord Rich Presence"
+  }
+}
